@@ -1,4 +1,4 @@
-from project import db
+from templates.static.main import db
 
 class Role(db.Model):
     __tablename__ = 'roles'

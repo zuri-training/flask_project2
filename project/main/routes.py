@@ -1,7 +1,7 @@
-from project import app, db
+from templates.static.main import app, db
 from flask import render_template, url_for, redirect, flash, request, session
 from project.models import User, Role
-from project.forms import NameForm
+from project.main.forms import NameForm
 from flask_mail import Message, Mail
 
 app.route('/', methods=['GET', 'POST'])
@@ -27,8 +27,3 @@ def index():
 def make_shell_context():
     return dict(db=db, User=User, Role=Role)
 
-def send_mail(to, subject, template, **kwargs):
-    msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject, sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
-    msg.body = render_template(template + '.txt', **kwargs)
-    msg.html = render_template(template + '.html', **kwargs)
-    mail.send(msg)
